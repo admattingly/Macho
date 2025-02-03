@@ -1,0 +1,5 @@
+         MACRO
+&NAME    MACPCEPI
+         EREGG 0,1           Restore R0 & R1 to original values
+         PR                  Restore R2-14 and return to caller
+         MEND
