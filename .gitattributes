@@ -1,0 +1,7 @@
+# line encodings
+* text eol=lf
+
+# file encodings
+*.c zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
+*PRO zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
+*EPI zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
