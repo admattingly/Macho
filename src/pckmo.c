@@ -2,6 +2,7 @@
  * PCKMO - PERFORM CRYPTOGRAPHIC KEY MANAGEMENT OPERATION
  */
 #include "ieantc.h"
+#include "macho.h"
 #include "machopc.h"
 
 #ifdef __64BIT__
@@ -12,10 +13,10 @@
 #endif
 
 long PCKMO(
-        unsigned long   *pGR0,          /* input integer */
-        unsigned char   *GR1,           /* input/output string */
-        unsigned long   *pPcRc,         /* output integer */
-        unsigned long   *pticks)        /* output integer */
+        MACHO_INTEGER   pGR0,          /* (input)        GR0 */
+        MACHO_STRING    GR1,           /* (input/output) GR1 */
+        MACHO_INTEGER   pPcRc,         /* (output)       PC routine return code */
+        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
 {
     unsigned long       PcRc, ticks;
     unsigned long long  start, end;
