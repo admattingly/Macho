@@ -1,0 +1,39 @@
+*process display(std) system(os);
+ /*
+    Invoke PRNO machine instruction to generate random bytes
+
+    To compile:
+
+    $ pli -c tprno.c
+    $ ld -otprno tprno.o -l "//'MACHO.PDSE'" -l "//'CEE.SCEELKED'"
+
+    To run:
+
+    $ ./tprno
+ */
+
+ tprno: proc options(main);
+
+ dcl GR0                 fixed bin(31);
+ dcl GR1                 char(1);
+ dcl R1                  char(1);
+ dcl R1plus1             fixed bin(31);
+ dcl R2                  char(16);
+ dcl R2plus1             fixed bin(31);
+ dcl CC                  fixed bin(31);
+ dcl invokes             fixed bin(31);
+ dcl ticks               fixed bin(31);
+
+ dcl PRNO3 external entry options(asm, inter);
+
+ /* only request conditioned random bytes */
+ GR0 = 114;  /* PRNO-TRNG (PRNO Function Code 114) */
+ R1plus1 = 0;
+ R2plus1 = 16;
+ call PRNO3(GR0, GR1, R1, R1plus1, R2, R2plus1, CC, invokes, ticks);
+ display('R2      = ' || hex(R2));
+ display('CC      = ' || CC);
+ display('invokes = ' || invokes);
+ display('ticks   = ' || ticks);
+
+ end;
