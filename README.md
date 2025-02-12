@@ -1,4 +1,3 @@
-
 # Macho
 ## A simple interface to IBM Z MACHine instructions and z/OS System MacrOs
 Macho is a library of callable services named after, and providing an interface to invoke, various IBM Z machine instructions and z/OS system macros.
@@ -46,7 +45,7 @@ The [tests](https://github.com/admattingly/Macho/tree/main/tests) directory cont
 
 For IBM Z machine instructions, the process you should go through is as follows:
 
- - Check the src directory to see if the instruction is implemented.
+ - Check the [src](https://github.com/admattingly/Macho/tree/main/src) directory to see if the instruction is implemented.
  - Check the [tests](https://github.com/admattingly/Macho/tree/main/tests) directory to see if an example exists for your target instruction or something like it.
  - Find the description of the machine instruction in the [IBM z/Architecture Principles of Operation](https://publibfp.dhe.ibm.com/epubs/pdf/a227832d.pdf).  This is your **documentation** for the Macho routine.
  - Write and test your application, making sure the MACHO.PDSE (or MACHO.PDSE64 for a 64-bit application) is in your STEPLIB.
