@@ -36,7 +36,7 @@ long KDSA3(
     CC = 3;
     invokes = 0;
     ticks = 0;
-    while (CC == 3 && R2plus1 != 0) {
+    while (CC == 3) {
 
         __asm(" STCKF %[start]        Get start timestamp            \n"
               " XGR   %[cc],%[cc]     Set CC register to zero        \n"
