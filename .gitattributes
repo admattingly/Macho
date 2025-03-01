@@ -6,6 +6,9 @@
 *.c zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
 *.h zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
 *.s zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
+*.py zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
+*.cbl zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
+*.pli zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
 *.rex zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
 makefile zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
 *PRO zos-working-tree-encoding=ibm-1047 git-encoding=utf-8
