@@ -12,11 +12,13 @@
 
 /* RACF profile name suffixes protecting verbs */
 #define MACPROF_PCKMO           "PCKMO"
+#define MACPROF_QEDIT           "QEDIT"
 
 #pragma prolog(main, "MACPCPRO")
 #pragma epilog(main, "MACPCEPI")
 
 static int pckmo(void *parm);
+static int qedit(void *parm);
 static int fastauth(char *verb);
 
 int main(void *work_area, void *parm)
@@ -29,6 +31,11 @@ int main(void *work_area, void *parm)
     case MACVERB_PCKMO:
         if (fastauth(MACPROF_PCKMO)) {
             pb->return_code = pckmo(parm);
+        }
+        break;
+    case MACVERB_QEDIT:
+        if (fastauth(MACPROF_QEDIT)) {
+            pb->return_code = qedit(parm);
         }
         break;
     default:
@@ -49,6 +56,24 @@ int pckmo(void *parm)
           : "NR:r0"(pb->gr0),
             "NR:r1"(pb->gr1)
           : );
+
+    return MACERR_SUCCESS;
+}
+
+int qedit(void *parm)
+{
+    PBLOCK_QEDIT    pb;
+    char            save;
+
+    /* switch to key 0 for QEDIT call */
+    pb = (PBLOCK_QEDIT)parm;
+    __asm(" MODESET EXTKEY=ZERO,SAVEKEY=%[save],WORKREG=2\n"
+          " QEDIT ORIGIN=(%[origin])                     \n"
+          " MODESET KEYADDR=%[save],WORKREG=2              "
+          : [save]        "=m"(save),
+                     "=NR:r15"(pb->gr15)
+          : [origin]       "r"(pb->origin)
+          : "r0", "r1", "r2", "r14", "r15");
 
     return MACERR_SUCCESS;
 }

@@ -14,9 +14,9 @@ CFLAGS = -qin=all:nostp -qfloat=ieee "-Wc,supp(CCN3415,CCN3571)" -S -qmetal -qno
 CFLAGS64 = -q64 -qfloat=ieee -qasm -qasmlib=$(MISSING):sys1.maclib:sys1.modgen -qin=all:nostp "-Wc,supp(CCN3415,CCN3571)" "-Wl,dll"
 LFLAGS =
 
-FILES = alloc alloc4k cmpsc cmpsc3 copyin copyout dfltcc dfltcc3 floatin floatout free kdsa kdsa3 kimd kimd3 \
-        klmd klmd3 km km3 kma kma3 kmac kmac3 kmc kmc3 kmctr kmctr3 kmf kmf3 kmo kmo3 nnpa nnpa3 pcc pcc3 pfpo \
-        prno prno3 sortl sortl3 stck stcke stckf vcfn vclfnh vclfnl vcnf vcrnf pckmo
+FILES = alloc alloc4k cmpsc cmpsc3 copyin copyout dfltcc dfltcc3 extract floatin floatout free kdsa kdsa3 kimd kimd3 \
+        klmd klmd3 km km3 kma kma3 kmac kmac3 kmc kmc3 kmctr kmctr3 kmf kmf3 kmo kmo3 nnpa nnpa3 pcc pcc3 pckmo pfpo \
+        prno prno3 qedit sortl sortl3 stck stcke stckf vcfn vclfnh vclfnl vcnf vcrnf wait
 
 macho : $(FILES:+".exe") machopc.exe macpcreg.exe
 	touch macho
@@ -34,8 +34,8 @@ macpcreg.exe: macpcreg.c machopc.h ieantc.h iezcom.h
 %.exe : %.c
 	$(CC) $(CFLAGS) -o $*.s $(INCS) $*.c
 	$(AS) $(AFLAGS) -o $*.o -I $(MISSING) $*.s 
-	$(LD) $(LFLAGS) -o "//'$(LOAD)($*)'" $*.o -l "//'SYS1.CSSLIB'"
-	$(CC) $(CFLAGS64) -o "//'$(LOAD64)($*)'" $(INCS) $*.c -l "//'SYS1.CSSLIB'"
+	$(LD) $(LFLAGS) -o "//'$(LOAD)($*)'" $*.o -l "//'SYS1.CSSLIB'" -l "//'$(LOAD)'"
+	$(CC) $(CFLAGS64) -qlist -o "//'$(LOAD64)($*)'" $(INCS) $*.c -l "//'SYS1.CSSLIB'" -l "//'$(LOAD64)'" > $*.list64
 	touch $*.exe
 	
 clean :

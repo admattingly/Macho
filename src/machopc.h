@@ -6,6 +6,7 @@
 
 /* IDs for verbs provided by PC routine */
 #define MACVERB_PCKMO   101
+#define MACVERB_QEDIT   102
 
 /* error codes */
 #define MACERR_SUCCESS  0
@@ -25,3 +26,9 @@ typedef struct {
     unsigned long long  gr0;
     unsigned long long  gr1;
 } BLOCK_PCKMO, *PBLOCK_PCKMO;
+
+typedef struct {
+    BLOCK_COMMON        common;
+    unsigned long long  origin;
+    unsigned long long  gr15;
+} BLOCK_QEDIT, *PBLOCK_QEDIT;

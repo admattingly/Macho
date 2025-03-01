@@ -1,9 +1,10 @@
 /* macho.h */
 
 /* parameter types */
-typedef long            *MACHO_INTEGER;
-typedef unsigned char   *MACHO_STRING;
-typedef unsigned char   **MACHO_POINTER;
+typedef long                *MACHO_INTEGER;
+typedef unsigned long long  *MACHO_DWORD;
+typedef unsigned char       *MACHO_STRING;
+typedef unsigned char       **MACHO_POINTER;
 
 /* function prototypes */
 long ALLOC(
@@ -65,6 +66,9 @@ long DFLTCC3(
         MACHO_STRING    R3,            /* (input/output) R3   */
         MACHO_INTEGER   pCC,           /* (output)       condition code */
         MACHO_INTEGER   pinvokes,      /* (output)       number of times instruction was driven before CC=3 */
+        MACHO_INTEGER   pticks);       /* (output)       elapsed clock ticks */
+long EXTRACT(
+        MACHO_STRING    answerarea,    /* (output)       12-fullword (48-byte) area to receive output */
         MACHO_INTEGER   pticks);       /* (output)       elapsed clock ticks */
 long FLOATIN(
         MACHO_STRING    text,          /* (input)        string */
