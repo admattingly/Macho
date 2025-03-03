@@ -36,7 +36,7 @@ end
 inBuffer = d2c(0, 4)
 bufferLength = d2c(8, 4)
 returnCode = d2c(0, 4)
-ticks = d2c(0, 4)
+ticks = d2c(0, 8)
 address linkpgm "ALLOC inBuffer bufferLength returnCode ticks"
 say "ALLOC  inBuffer@="c2x(inBuffer)", length="c2d(bufferLength)", rc="c2d(returnCode)", time="c2d(ticks)/4096.0" microseconds"
 if c2d(returnCode) \= 0 then do

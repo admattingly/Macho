@@ -20,7 +20,7 @@ field.11 = "TJID"
 field.12 = "ASID"
 
 answerarea = copies('00'x, 48)
-ticks = d2c(0, 4)
+ticks = d2c(0, 8)
 
 address linkpgm "EXTRACT" ,
   "answerarea ticks"

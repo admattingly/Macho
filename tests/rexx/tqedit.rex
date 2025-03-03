@@ -113,13 +113,14 @@ if comcibpt \= '00000000'x then do
   end
   
   /* delete entire CIB chain, just to test privileged operation.  This step is not normally required! */
-  say 'Deleting CIB chain...'
+  say 'Deleting entire CIB chain...'
   block = d2c(0, 4)
+  cibctr = d2c(-1, 4)
 
   address linkpgm 'QEDIT' ,
     'origin block cibctr MacroRc PcRc ticks'
   
-  say '  QEDIT ORIGIN='c2x(origin)',BLOCK='c2x(block)' rc='c2d(MacroRc)', PcRc='c2d(PcRc)
+  say '  QEDIT ORIGIN='c2x(origin)' rc='c2d(MacroRc)', PcRc='c2d(PcRc)
   
 end
 say 'Processing complete!'
