@@ -22,7 +22,7 @@
  dcl R2plus1             fixed bin(31);
  dcl CC                  fixed bin(31);
  dcl invokes             fixed bin(31);
- dcl ticks               fixed bin(31);
+ dcl ticks               fixed bin(63);
 
  dcl PRNO3 external entry options(asm, inter);
 
