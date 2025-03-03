@@ -19,7 +19,7 @@ numeric digits 20
 /* call EXTRACT to obtain COMM pointer */
 say 'EXTRACTing TCB information...'
 answerarea = copies('00'x, 48)
-ticks = d2c(0, 4)
+ticks = d2c(0, 8)
 
 address linkpgm 'EXTRACT' ,
   'answerarea ticks'
@@ -50,7 +50,7 @@ if comcibpt \= '00000000'x then do
   cibctr = d2c(-1, 4)
   MacroRc = d2c(0, 4)
   PcRc = d2c(0, 4)
-  ticks = d2c(0, 4)
+  ticks = d2c(0, 8)
   
   address linkpgm 'QEDIT' ,
     'origin block cibctr MacroRc PcRc ticks'
@@ -104,7 +104,7 @@ if comcibpt \= '00000000'x then do
     cibctr = d2c(-1, 4)
     MacroRc = d2c(0, 4)
     PcRc = d2c(0, 4)
-    ticks = d2c(0, 4)
+    ticks = d2c(0, 8)
   
     address linkpgm 'QEDIT' ,
       'origin block cibctr MacroRc PcRc ticks'
