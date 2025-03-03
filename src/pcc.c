@@ -15,10 +15,10 @@ long PCC(
         MACHO_INTEGER   pGR0,          /* (input)        GR0 */
         MACHO_STRING    GR1,           /* (input)        GR1 */
         MACHO_INTEGER   pCC,           /* (output)       condition code */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       GR0, CC, ticks;
-    unsigned long long  start, end;
+    unsigned long       GR0, CC;
+    unsigned long long  start, end, ticks;
 
     GR0 = *pGR0;
 
@@ -35,7 +35,7 @@ long PCC(
                       "NR:r1"(GR1)
           : );
 
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pCC = CC;
     *pticks = ticks;
 

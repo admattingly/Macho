@@ -15,11 +15,11 @@ long FREE(
         MACHO_POINTER   pbuffer,       /* (input)        buffer to be freed */
         MACHO_INTEGER   pbufferLength, /* (input)        buffer length */
         MACHO_INTEGER   preturnCode,   /* (output)       return code from STORAGE RELEASE macro */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
     unsigned char       *buffer;
-    unsigned long       bufferLength, returnCode, ticks;
-    unsigned long long  start, end;
+    unsigned long       bufferLength, returnCode;
+    unsigned long long  start, end, ticks;
 
     buffer = *pbuffer;
     bufferLength = *pbufferLength;
@@ -35,7 +35,7 @@ long FREE(
             [len]         "r"(bufferLength)
           : "r0", "r1", "r14", "r15");
 
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pticks = ticks;
     *preturnCode = returnCode;
 

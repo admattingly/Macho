@@ -19,10 +19,10 @@ long KMC(
         MACHO_POINTER   pR2,           /* (input/output) R2   */
         MACHO_INTEGER   pR2plus1,      /* (input/output) R2+1 */
         MACHO_INTEGER   pCC,           /* (output)       condition code */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       GR0, R1plus1, R2plus1, CC, ticks;
-    unsigned long long  start, end;
+    unsigned long       GR0, R1plus1, R2plus1, CC;
+    unsigned long long  start, end, ticks;
     unsigned char       *R1, *R2;
 
     GR0 = *pGR0;
@@ -48,7 +48,7 @@ long KMC(
                       "NR:r1"(GR1)
           : );
 
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pR1 = R1;
     *pR1plus1 = R1plus1;
     *pR2 = R2;

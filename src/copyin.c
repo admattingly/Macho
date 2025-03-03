@@ -17,10 +17,10 @@ long COPYIN(
         MACHO_STRING    string,        /* (input)        string to be copied */
         MACHO_INTEGER   pstringLength, /* (input)        string length */
         MACHO_POINTER   pbuffer,       /* (input)        buffer to receive string */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       stringLength, ticks;
-    unsigned long long  start, end;
+    unsigned long       stringLength;
+    unsigned long long  start, end, ticks;
 
     stringLength = *pstringLength;
 
@@ -36,7 +36,7 @@ long COPYIN(
           :
           : );
 
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pticks = ticks;
 
     return 0;

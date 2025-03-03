@@ -16,14 +16,14 @@ long NNPA3(
         MACHO_STRING    GR1,           /* (input)        GR1 */
         MACHO_INTEGER   pCC,           /* (output)       condition code */
         MACHO_INTEGER   pinvokes,      /* (output)       number of times instruction was driven before CC=3 */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       GR0, CC, invokes, ticks;
-    unsigned long long  start, end;
+    unsigned long       GR0, CC, invokes;
+    unsigned long long  start, end, ticks;
 
     GR0 = *pGR0;
 
-    /* loop until condition code is not equal to 3 and R2+1 != 0 (in case usage counter could not be updated) */
+    /* loop until condition code is not equal to 3 */
     CC = 3;
     invokes = 0;
     ticks = 0;
@@ -43,7 +43,7 @@ long NNPA3(
               : );
 
         invokes++;
-        ticks += (unsigned long)(end - start);
+        ticks += end - start;
 
     }
 

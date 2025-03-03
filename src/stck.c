@@ -13,10 +13,9 @@
 
 long STCK(
         MACHO_STRING    D2,            /* (output)       8-byte (64-bit) buffer */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       ticks;
-    unsigned long long  start, end;
+    unsigned long long  start, end, ticks;
 
     __asm(" STCKF %[start]        Get start timestamp            \n"
           " STCK  %[clock]        Invoke STCK instruction        \n"
@@ -27,7 +26,7 @@ long STCK(
           :
           : );
 
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pticks = ticks;
 
     return 0;

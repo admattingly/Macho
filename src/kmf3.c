@@ -20,10 +20,10 @@ long KMF3(
         MACHO_INTEGER   pR2plus1,      /* (input/output) R2+1 */
         MACHO_INTEGER   pCC,           /* (output)       condition code */
         MACHO_INTEGER   pinvokes,      /* (output)       number of times instruction was driven before CC=3 */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       GR0, R1plus1, R2plus1, CC, invokes, ticks;
-    unsigned long long  start, end;
+    unsigned long       GR0, R1plus1, R2plus1, CC, invokes;
+    unsigned long long  start, end, ticks;
     unsigned char       *R1, *R2;
 
     GR0 = *pGR0;
@@ -32,11 +32,11 @@ long KMF3(
     R2 = R2static;
     R2plus1 = *pR2plus1;
 
-    /* loop until condition code is not equal to 3 and R2+1 != 0 (in case usage counter could not be updated) */
+    /* loop until condition code is not equal to 3 */
     CC = 3;
     invokes = 0;
     ticks = 0;
-    while (CC == 3 && R2plus1 != 0) {
+    while (CC == 3) {
 
         __asm(" STCKF %[start]        Get start timestamp            \n"
               " XGR   %[cc],%[cc]     Set CC register to zero        \n"
@@ -56,7 +56,7 @@ long KMF3(
               : );
 
         invokes++;
-        ticks += (unsigned long)(end - start);
+        ticks += end - start;
 
     }
 

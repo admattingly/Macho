@@ -19,11 +19,11 @@ long WAIT(
         MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks (64-bit value to prevent overflow) */
 {
     unsigned long       events;
-    unsigned long long  start, end, bigticks;
+    unsigned long long  start, end, ticks;
     unsigned char       *lowlist;
 #ifdef __64BIT__
     unsigned int        *ecb;
-    long                lowlen, n, rc, ticks;
+    long                lowlen, n, rc;
 #endif
 
     events = *pevents;
@@ -54,8 +54,8 @@ long WAIT(
             [ecblst]  "r"(lowlist)
           : "r0", "r1", "r14", "r15");
 
-    bigticks = end - start;
-    *pticks = bigticks;
+    ticks = end - start;
+    *pticks = ticks;
 
 #ifdef __64BIT__
     FREE(&lowlist, &lowlen, &rc, &ticks);

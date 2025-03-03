@@ -19,10 +19,10 @@ long PFPO(
         MACHO_STRING    FPR4,          /* (input/output) 8-byte (64 bit) buffer */
         MACHO_STRING    FPR6,          /* (input/output) 8-byte (64 bit) buffer */
         MACHO_INTEGER   pCC,           /* (output)       condition code */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       GR0, GR1, CC, ticks;
-    unsigned long long  start, end;
+    unsigned long       GR0, GR1, CC;
+    unsigned long long  start, end, ticks;
 
     GR0 = *pGR0;
     GR1 = 0;        /* to avoid confusion */
@@ -52,7 +52,7 @@ long PFPO(
           :           "NR:r0"(GR0)
           : );
 
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pGR1 = GR1;
     *pCC = CC;
     *pticks = ticks;

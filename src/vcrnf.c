@@ -17,10 +17,10 @@ long VCRNF(
         MACHO_STRING    V3,            /* (input)        V3 */
         MACHO_INTEGER   pM4,           /* (input)        M4 */
         MACHO_INTEGER   pM5,           /* (input)        M5 */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       ticks, M4, M5;
-    unsigned long long  start, end;
+    unsigned long       M4, M5;
+    unsigned long long  start, end, ticks;
 
     M4 = *pM4;
     M5 = *pM5;
@@ -48,7 +48,7 @@ long VCRNF(
         break;
     }
 
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pticks = ticks;
 
     return 0;

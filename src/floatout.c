@@ -18,11 +18,11 @@ long FLOATOUT(
         MACHO_STRING    binary,        /* (input)        4-byte binary IEEE 754 single-length floating-point value */
         MACHO_STRING    text,          /* (output)       string */
         MACHO_INTEGER   ptextLength,   /* (input/output) (maximum on input, actual on ouput) string length */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
     unsigned char       buffer[1024];
-    unsigned long       textLength, outLength, ticks;
-    unsigned long long  start, end;
+    unsigned long       textLength, outLength;
+    unsigned long long  start, end, ticks;
     float               fp;
 
     textLength = *ptextLength;
@@ -43,7 +43,7 @@ long FLOATOUT(
           : );
 
     *ptextLength = outLength;
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pticks = ticks;
 
     return 0;

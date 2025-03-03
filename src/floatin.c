@@ -19,11 +19,11 @@ long FLOATIN(
         MACHO_STRING    text,          /* (input)        string */
         MACHO_INTEGER   ptextLength,   /* (input)        string length */
         MACHO_STRING    binary,        /* (output)       4-byte binary IEEE 754 single-length floating-point value */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
     unsigned char       buffer[1024];
-    unsigned long       textLength, ticks;
-    unsigned long long  start, end;
+    unsigned long       textLength;
+    unsigned long long  start, end, ticks;
     float               fp;
 
     textLength = *ptextLength;
@@ -42,7 +42,7 @@ long FLOATIN(
           :
           : );
 
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     memcpy(binary, &fp, sizeof(float));
     *pticks = ticks;
 

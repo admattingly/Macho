@@ -15,11 +15,11 @@ long ALLOC4K(
         MACHO_POINTER   pbuffer,       /* (output)       buffer pointer */
         MACHO_INTEGER   pbufferLength, /* (input)        buffer length required */
         MACHO_INTEGER   preturnCode,   /* (output)       return code from STORAGE OBTAIN macro */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
     unsigned char       *buffer;
-    unsigned long       bufferLength, returnCode, ticks;
-    unsigned long long  start, end;
+    unsigned long       bufferLength, returnCode;
+    unsigned long long  start, end, ticks;
 
     bufferLength = *pbufferLength;
 
@@ -34,7 +34,7 @@ long ALLOC4K(
           : [len]         "r"(bufferLength)
           : "r0", "r1", "r14", "r15");
 
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pbuffer = buffer;
     *preturnCode = returnCode;
     *pticks = ticks;

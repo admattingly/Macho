@@ -21,10 +21,10 @@ long DFLTCC3(
         MACHO_STRING    R3,            /* (input/output) R3   */
         MACHO_INTEGER   pCC,           /* (output)       condition code */
         MACHO_INTEGER   pinvokes,      /* (output)       number of times instruction was driven before CC=3 */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       GR0, R1plus1, R2plus1, CC, invokes, ticks;
-    unsigned long long  start, end;
+    unsigned long       GR0, R1plus1, R2plus1, CC, invokes;
+    unsigned long long  start, end, ticks;
     unsigned char       *R1, *R2;
 
     GR0 = *pGR0;
@@ -58,7 +58,8 @@ long DFLTCC3(
               : );
 
         invokes++;
-        ticks += (unsigned long)(end - start);
+        ticks += end - start;
+
     }
 
     *pR1plus1 = R1plus1;

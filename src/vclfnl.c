@@ -16,10 +16,10 @@ long VCLFNL(
         MACHO_STRING    V2,            /* (input)        V2 */
         MACHO_INTEGER   pM3,           /* (input)        M3 */
         MACHO_INTEGER   pM4,           /* (input)        M4 */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       ticks, M3, M4;
-    unsigned long long  start, end;
+    unsigned long       M3, M4;
+    unsigned long long  start, end, ticks;
 
     M3 = *pM3;
     M4 = *pM4;
@@ -45,7 +45,7 @@ long VCLFNL(
         break;
     }
 
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pticks = ticks;
 
     return 0;

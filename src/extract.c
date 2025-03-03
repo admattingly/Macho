@@ -33,13 +33,12 @@
 
 long EXTRACT(
         MACHO_STRING    answerarea,    /* (output)       12-fullword (48-byte) area to receive output */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
     unsigned char       *aa = answerarea;
-    unsigned long       ticks;
-    unsigned long long  start, end;
+    unsigned long long  start, end, ticks, aaticks;
     unsigned char       *parm;
-    long                aalen, aarc, aaticks;
+    long                aalen, aarc;
 
     /* allocate 31-bit answer area and parm block */
     aalen = 48 + 16;
@@ -64,7 +63,7 @@ long EXTRACT(
 
     memcpy(answerarea, aa, 48);
     FREE(&aa, &aalen, &aarc, &aaticks);
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pticks = ticks;
 
     return 0;

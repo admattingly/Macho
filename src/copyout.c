@@ -17,10 +17,10 @@ long COPYOUT(
         MACHO_POINTER   pbuffer,       /* (input)        buffer containing string to be copied */
         MACHO_INTEGER   pbufferLength, /* (input)        string length */
         MACHO_STRING    string,        /* (output)       string */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       bufferLength, ticks;
-    unsigned long long  start, end;
+    unsigned long       bufferLength;
+    unsigned long long  start, end, ticks;
 
     bufferLength = *pbufferLength;
 
@@ -36,7 +36,7 @@ long COPYOUT(
           :
           : );
 
-    ticks = (unsigned long)(end - start);
+    ticks = end - start;
     *pticks = ticks;
 
     return 0;

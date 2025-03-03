@@ -17,10 +17,10 @@ long PCKMO(
         MACHO_INTEGER   pGR0,          /* (input)        GR0 */
         MACHO_STRING    GR1,           /* (input/output) GR1 */
         MACHO_INTEGER   pPcRc,         /* (output)       PC routine return code */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
-    unsigned long       PcRc, ticks;
-    unsigned long long  start, end;
+    unsigned long       PcRc;
+    unsigned long long  start, end, ticks;
     BLOCK_PCKMO         blk;
     int                 level, rc;
     unsigned char       token[16], work_area[PC_WORK_AREA], *pwork;
@@ -60,7 +60,7 @@ long PCKMO(
                           "NR:r1"(plist)
               : "r1", "r15");
         PcRc = blk.common.return_code;
-        ticks = (unsigned long)(end - start);
+        ticks = end - start;
 #ifdef __64BIT__
         free(pwork);
 #endif

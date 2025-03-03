@@ -39,11 +39,11 @@ long QEDIT(
         MACHO_INTEGER   pCibCtr,       /* (input)        limit for the number of CIBs to be chained at any time for this task */
         MACHO_INTEGER   pRc,           /* (output)       return code from QEDIT call */
         MACHO_INTEGER   pPcRc,         /* (output)       PC routine return code (if BLOCK = null and CIBCTR < 0) */
-        MACHO_INTEGER   pticks)        /* (output)       elapsed clock ticks */
+        MACHO_DWORD     pticks)        /* (output)       elapsed clock ticks */
 {
     unsigned char       *origin, *block;
-    unsigned long       PcRc, ticks, MacroRc;
-    unsigned long long  start, end;
+    unsigned long       PcRc, MacroRc;
+    unsigned long long  start, end, ticks;
     unsigned char       *parm;
     long                cibctr;
     BLOCK_QEDIT         blk;
@@ -89,7 +89,7 @@ long QEDIT(
                               "NR:r1"(plist)
                   : "r1", "r15");
             PcRc = blk.common.return_code;
-            ticks = (unsigned long)(end - start);
+            ticks = end - start;
 #ifdef __64BIT__
             free(pwork);
 #endif
@@ -119,7 +119,7 @@ long QEDIT(
               : "r0", "r1", "r14", "r15");
         *pRc = MacroRc;
         *pPcRc = MACERR_SUCCESS;
-        ticks = (unsigned long)(end - start);
+        ticks = end - start;
         *pticks = ticks;
     }
     else if (block == NULL && cibctr >= 0) {
@@ -138,7 +138,7 @@ long QEDIT(
               : "r0", "r1", "r14", "r15");
         *pRc = MacroRc;
         *pPcRc = MACERR_SUCCESS;
-        ticks = (unsigned long)(end - start);
+        ticks = end - start;
         *pticks = ticks;
     }
     else {
