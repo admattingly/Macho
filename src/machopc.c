@@ -92,7 +92,9 @@ int fastauth(char *verb)
     sprintf(profile + 4, "%s.%s", PERMIT_PROFILE_PREFIX, verb);
     *(unsigned short *)(void *)profile = (unsigned short)strlen(profile + 4);
     *(unsigned short *)(void *)(profile + 2) = (unsigned short)strlen(profile + 4);
-    __asm(" SAM31\n"
+
+    __asm(" SYSSTATE ARCHLVL=2,AMODE64=NO\n"
+          " SAM31\n"
           " RACROUTE REQUEST=FASTAUTH,"
                     "RELEASE=2.6,"
                     "CLASS=%[class],"
