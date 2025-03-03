@@ -6,6 +6,7 @@
 #include "machopc.h"
 
 #ifdef __64BIT__
+#include <stdlib.h>
 #pragma export(PCKMO)
 #else
 #pragma prolog(PCKMO, main)
@@ -22,7 +23,7 @@ long PCKMO(
     unsigned long long  start, end;
     BLOCK_PCKMO         blk;
     int                 level, rc;
-    unsigned char       token[16], work_area[PC_WORK_AREA];
+    unsigned char       token[16], work_area[PC_WORK_AREA], *pwork;
     unsigned int        *lx;
     unsigned long long  plist[2];
 
@@ -42,7 +43,11 @@ long PCKMO(
         lx = (unsigned int *)(void *)token;     /* map token as array of fullwords */
         /* call the PC routine */
         rc = lx[0];     /* first word of extended linkage index */
-        plist[0] = (unsigned long long)(void *)work_area;
+        pwork = work_area;
+#ifdef __64BIT__
+        pwork = __malloc31(PC_WORK_AREA);
+#endif
+        plist[0] = (unsigned long long)(void *)pwork;
         plist[1] = (unsigned long long)(void *)&blk;
         __asm(" STCKF %[start]\n"
               " SLLG  15,15,32  Place first word of LX into bits 0..31 of GR15\n"
@@ -56,6 +61,9 @@ long PCKMO(
               : "r1", "r15");
         PcRc = blk.common.return_code;
         ticks = (unsigned long)(end - start);
+#ifdef __64BIT__
+        free(pwork);
+#endif
     }
     else {
         // can't retrieve name/token pair, so MACPCREG task not running?
