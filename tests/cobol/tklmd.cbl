@@ -43,6 +43,7 @@
        01  pr1       pointer.
        01  r2        pic x(1).
        01  pr2       pointer.
+       01  ticks     pic 9(18)  comp-5.
       *
       * register variables dependent on addressing mode
       *
@@ -52,14 +53,12 @@
        01  r2plus1   pic 9(18)  comp-5.
        01  cc        pic 9(18)  comp-5.
        01  invokes   pic 9(18)  comp-5.
-       01  ticks     pic 9(18)  comp-5.
        >>ELSE
        01  gr0       pic 9(9)   comp-5.
        01  r1plus1   pic 9(9)   comp-5.
        01  r2plus1   pic 9(9)   comp-5.
        01  cc        pic 9(9)   comp-5.
        01  invokes   pic 9(9)   comp-5.
-       01  ticks     pic 9(9)   comp-5.
        >>END-IF
        procedure division.
       *
