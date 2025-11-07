@@ -58,7 +58,7 @@ long WAIT(
     *pticks = ticks;
 
 #ifdef __64BIT__
-    FREE(&lowlist, &lowlen, &rc, &ticks);
+    MCFREE(&lowlist, &lowlen, &rc, &ticks);
 #endif
 
     return 0;

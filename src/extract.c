@@ -62,7 +62,7 @@ long EXTRACT(
           : "r0", "r1", "r14", "r15");
 
     memcpy(answerarea, aa, 48);
-    FREE(&aa, &aalen, &aarc, &aaticks);
+    MCFREE(&aa, &aalen, &aarc, &aaticks);
     ticks = end - start;
     *pticks = ticks;
 

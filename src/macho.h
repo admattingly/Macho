@@ -80,7 +80,7 @@ long FLOATOUT(
         MACHO_STRING    text,          /* (output)       string */
         MACHO_INTEGER   ptextLength,   /* (input/output) (maximum on input, actual on ouput) string length */
         MACHO_DWORD     pticks);       /* (output)       elapsed clock ticks */
-long FREE(
+long MCFREE(
         MACHO_POINTER   pbuffer,       /* (input)        buffer to be freed */
         MACHO_INTEGER   pbufferLength, /* (input)        buffer length */
         MACHO_INTEGER   preturnCode,   /* (output)       return code from STORAGE RELEASE macro */
